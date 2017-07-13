@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
+
 declare var google;
 
 @Component({
@@ -15,6 +16,10 @@ export class MapPage {
 
     constructor(public navCtrl: NavController, public geolocation: Geolocation) {
 
+    }
+
+    startJob(){
+        console.log('start Job!');  
     }
 
     ionViewDidLoad() {
@@ -31,7 +36,8 @@ export class MapPage {
             let mapOptions = {
                 center: latLng,
                 zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                disableDefaultUI: true
             }
 
             var triangleCoords = [
