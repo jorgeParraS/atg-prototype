@@ -12,18 +12,22 @@ declare var google;
 
 @Component({
     selector: 'map',
-    templateUrl: 'map.html',    
+    templateUrl: 'map.html',
 })
 export class MapComponent {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
-
+    watch: any;
     constructor(private geolocation: Geolocation) {}
 
     // Load map only after view is initialized
     ngAfterViewInit() {
         this.loadMap();
+    }
+
+    getWatch(){
+        console.log('watch:', this.watch);
     }
 
     loadMap() {
@@ -39,7 +43,7 @@ export class MapComponent {
                 disableDefaultUI: true
             }
 
-            var triangleCoords = [
+            let triangleCoords = [
                 { lat: -33.4138893, lng: -70.6033061 },
                 { lat: -33.4122704, lng: -70.592576 },
                 { lat: -33.4122703, lng: -70.592576 },
@@ -47,7 +51,7 @@ export class MapComponent {
             ];
 
             // Construct the polygon.
-            var bermudaTriangle = new google.maps.Polygon({
+            let bermudaTriangle = new google.maps.Polygon({
                 paths: triangleCoords,
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.8,
@@ -55,15 +59,22 @@ export class MapComponent {
                 fillColor: '#FF0000',
                 fillOpacity: 0.35
             });
-            
+
             this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-            
+
             bermudaTriangle.setMap(this.map);
+            
+            let GeolocationOptions = { frequency: 1 }
+            
+            this.watch = this.geolocation.watchPosition();
+            this.watch.subscribe(Position => {
+                console.log('Position', Position);
+            });
 
 
         }, (err) => {
             console.log(err);
-        });      
+        });
     }
 
 }

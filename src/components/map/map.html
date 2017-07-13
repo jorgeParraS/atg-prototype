@@ -6,4 +6,15 @@
 <ion-content>
     <div #map id="map" style="height:100%;"></div>
     <pickup></pickup>
+    <div class="bottom request-controls">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+                    <button ion-button color="light" (click)="startJob()">
+                        Start
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>
