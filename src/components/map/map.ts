@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef, Directive } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PickupComponent } from '../pickup/pickup';
+import { Geofence } from '@ionic-native/geofence';
+
 /**
  * Generated class for the MapComponent component.
  *
@@ -19,6 +21,9 @@ export class MapComponent {
     @ViewChild('map') mapElement: ElementRef;
     map: any;
     watch: any;
+    currentPosition:any;
+    public positions: Object[] = [];
+
     constructor(private geolocation: Geolocation) {}
 
     // Load map only after view is initialized
@@ -26,13 +31,43 @@ export class MapComponent {
         this.loadMap();
     }
 
-    getWatch(){
-        console.log('watch:', this.watch);
+    getWatch(){        
+        console.log('watch:', this.positions);
+    }
+
+    getCurrentPosition(){
+        console.log(this.currentPosition);
+    }
+
+    toHome(){
+        this.goTo(-33.4502784,-70.6522479);        
+    }
+
+    goTo(lat, lon){
+        var latLng = new google.maps.LatLng(lat,lon); //Makes a latlng
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: this.map,
+          title: 'Hello World!'
+        });
+
+        //marker.setMap(this.map);
+
+        this.map.panTo(latLng); //Make map global
+    }
+
+    goCurrentPosition(){
+        this.goTo(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude);
+    }
+
+    getCenter(){
+        console.log(this.map.getCenter().lat(), this.map.getCenter().lng());
     }
 
     loadMap() {
-
         this.geolocation.getCurrentPosition().then((position) => {
+
+            this.currentPosition = position;
 
             let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -66,9 +101,10 @@ export class MapComponent {
             
             let GeolocationOptions = { frequency: 1 }
             
-            this.watch = this.geolocation.watchPosition();
+            this.watch = this.geolocation.watchPosition(GeolocationOptions);
             this.watch.subscribe(Position => {
                 console.log('Position', Position);
+                this.positions.push(Position);
             });
 
 
