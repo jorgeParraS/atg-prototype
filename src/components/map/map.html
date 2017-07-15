@@ -1,9 +1,35 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Map</ion-title>
+        <ion-title>Mapa</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content>
     <div #map id="map" style="height:100%;"></div>
-    <pickup></pickup>
+    <!-- <pickup></pickup> -->
+    <div class="bottom request-controls">
+        <ion-grid>
+            <ion-row>
+                <ion-col >
+                    <button ion-button color="light" (click)="getCenter()">
+                        Center?
+                    </button>
+                </ion-col>
+                <!-- <ion-col >
+                    <button ion-button color="light" (click)="getCurrentPosition()">
+                        Position
+                    </button>
+                </ion-col> -->
+                <ion-col >
+                    <button ion-button color="light" (click)="toHome()">
+                        Go Home
+                    </button>
+                </ion-col>
+                <ion-col >
+                    <button ion-button color="light" (click)="goCurrentPosition()">
+                        Here!
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>

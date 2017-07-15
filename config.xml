@@ -88,4 +88,5 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyDmGQucFsOKfO-uLQ2VHSjOiSYymkXMBPs" />
         <variable name="API_KEY_FOR_IOS" value="YOUR_IOS_API_KEY_IS_HERE" />
     </plugin>
+    <plugin name="cordova-plugin-geofence" spec="^0.7.0" />
 </widget>

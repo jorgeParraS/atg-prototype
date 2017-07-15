@@ -1,3 +1,23 @@
-map {
+.ios,
+.md {
+    map {
+        .scroll {
+            height: 100%
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
 
+        .bottom{
+        	position: absolute;
+        	bottom: 0;
+        	width: 100%;
+        }
+
+        .request-controls{
+        	text-align: center;
+        	background: linear-gradient(transparent, ($colors, light));
+        }
+    }
 }
