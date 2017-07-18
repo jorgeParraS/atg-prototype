@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MapComponent } from '../map/map';
 import { HomeComponent } from '../home/home';
+import { BasemapComponent } from '../basemap/basemap';
 /**
  * Generated class for the TabsComponent component.
  *
@@ -14,6 +15,7 @@ import { HomeComponent } from '../home/home';
 export class TabsComponent {
 
   tab1Root = HomeComponent;
+  tab2Root = BasemapComponent;
   tab4Root = MapComponent;
 
   constructor() {

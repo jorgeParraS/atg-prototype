@@ -10,6 +10,7 @@ import { PickupComponent } from '../components/pickup/pickup';
 import { MapComponent } from '../components/map/map';
 import { TabsComponent } from '../components/tabs/tabs';
 import { HomeComponent } from '../components/home/home';
+import { BasemapComponent } from '../components/basemap/basemap';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { HomeComponent } from '../components/home/home';
         PickupComponent,
         MapComponent,
         TabsComponent,
-        HomeComponent
+        HomeComponent,
+        BasemapComponent
     ],
     imports: [
         BrowserModule,
@@ -28,7 +30,8 @@ import { HomeComponent } from '../components/home/home';
         MyApp,
         MapComponent,
         TabsComponent,
-        HomeComponent
+        HomeComponent,
+        BasemapComponent
     ],
     providers: [
         StatusBar,

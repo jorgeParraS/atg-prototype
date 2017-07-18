@@ -7,9 +7,19 @@
     <div #map id="map" style="height:100%;"></div>
     <!-- <pickup></pickup> -->
     <div class="bottom request-controls">
+        <ion-fab right bottom>
+            <button ion-fab color="light">
+                <ion-icon name="arrow-dropleft"></ion-icon>
+            </button>
+            <ion-fab-list side="left">
+                <button ion-fab>
+                    <ion-icon [name]="recordStatus" isActive="true" (click)="startRecord()"></ion-icon>                    
+                </button>
+            </ion-fab-list>
+        </ion-fab>
         <ion-grid>
             <ion-row>
-                <ion-col >
+                <ion-col>
                     <button ion-button color="light" (click)="getCenter()">
                         Center?
                     </button>
@@ -19,14 +29,29 @@
                         Position
                     </button>
                 </ion-col> -->
-                <ion-col >
+                <ion-col>
                     <button ion-button color="light" (click)="toHome()">
                         Go Home
                     </button>
                 </ion-col>
-                <ion-col >
+                <ion-col>
                     <button ion-button color="light" (click)="goCurrentPosition()">
-                        Here!
+                        goCurrentPosition!
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button color="light" (click)="getMap()">
+                        getMap!
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button color="light" (click)="startRecord()">
+                        startRecord!
+                    </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button color="light" (click)="getArea()">
+                        getArea!
                     </button>
                 </ion-col>
             </ion-row>
