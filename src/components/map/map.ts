@@ -6,10 +6,8 @@ import { ToastController } from 'ionic-angular';
 // import { Geofence } from '@ionic-native/geofence';
 
 /**
- * Generated class for the MapComponent component.
+ * Clase para jugar con los mapas
  *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
  */
 declare var google;
 
@@ -38,23 +36,14 @@ export class MapComponent {
 
     getWatch() {
         let GeolocationOptions = { frequency: 1 }
-        this.watch = this.geolocation.watchPosition(GeolocationOptions);
+        this.watch = this.geolocation.watchPosition();
         console.log('watch:', this.positions);
     }
 
-    getCurrentPosition() {
-        this.geolocation.getCurrentPosition().then((position) => {
-            this.currentPosition = position;
-        });
-    }
-
-    printPosition(all: any) {
-        // this.getCurrentPosition();
-        // console.log('currentPosition', this.currentPosition)
-        // console.log(position);
+    printPosition(all: any) {        
         all.recordStatus = 'pause';
         all.currentAction = 'pause';
-        console.log('all.area', all.area);
+
         let area = [
             { lat: -33.445068, lng: -70.654256 },
             { lat: -33.451406, lng: -70.657239 },
@@ -72,30 +61,69 @@ export class MapComponent {
             var latLng = new google.maps.LatLng(lat, lng); //Makes a latlng
 
             all.goTo(lat, lng);
+
+            
+
             //let mark = new google.maps.Marker({ position: { lat: lat, lng: lng }, map: this.map });
             //mark.setMap(all.map);
 
-            lineCoords.push(new google.maps.LatLng(lat, lng));
+            // lineCoords.push(new google.maps.LatLng(lat, lng));
 
-            var lineCoordinatesPath = new google.maps.Polyline({
-                path: lineCoords,
-                geodesic: true,
-                strokeColor: '#2E10FF'
-            });
+            // var lineCoordinatesPath = new google.maps.Polyline({
+            //     path: lineCoords,
+            //     geodesic: true,
+            //     strokeColor: '#2E10FF'
+            // });
 
-            lineCoordinatesPath.setMap(all.map);
+            // lineCoordinatesPath.setMap(all.map);
 
-            var inLocation = google.maps.geometry.poly.containsLocation(latLng, areaTriangle);
+            /*check if position is in location*/
+            let inPolygon = google.maps.geometry.poly.containsLocation(latLng, areaTriangle);
+            let resultColor = inPolygon ? 'red' : 'green';
+            let circle = google.maps.SymbolPath.CIRCLE; 
+            
+            new google.maps.Marker({
+                position: latLng,
+                map: all.map,
+                icon: {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  fillColor: resultColor,
+                  fillOpacity: .2,
+                  strokeColor: 'white',
+                  strokeWeight: .5,
+                  scale: 10
+                }
+              });
+
+            let markers:any[] = [];
+            markers.push(new google.maps.Marker({
+                position: latLng,
+                map: all.map,
+                icon: {
+                  path: google.maps.SymbolPath.CIRCLE,
+                  fillColor: resultColor,
+                  fillOpacity: .2,
+                  strokeColor: 'white',
+                  strokeWeight: .5,
+                  scale: 10
+                }
+              }));
+            
+            //marker.setMap(all.map);
+
+            let msg = (inPolygon == true) ? 'Inside Polygon' : 'Outside Polygon';
+
             let toast = all.toastCtrl.create({
-                message: 'inLocation:' + inLocation,
-                duration: 3000,
-                position: 'top',
-                showCloseButton: true,
-                closeButtonText: 'Ok'
+                message: msg,
+                duration: 1000,
+                position: 'top'
             });
-            toast.present(toast);
-            console.log('in inLocation:', inLocation);
+            //toast.present(toast);            
         });
+    }
+
+    getScale(latLng, zoom){
+        return 156543.03392 * Math.cos(latLng.lat() * Math.PI / 180) / Math.pow(2, zoom)
     }
 
     startRecord() {
@@ -112,14 +140,12 @@ export class MapComponent {
 
     goTo(lat, lon) {
         var latLng = new google.maps.LatLng(lat, lon); //Makes a latlng
-        var marker = new google.maps.Marker({
-            position: latLng,
-            map: this.map,
-            title: 'Hello World!'
-        });
-
-        marker.setMap(this.map);
-
+        // var marker = new google.maps.Marker({
+        //     position: latLng,
+        //     map: this.map,
+        //     title: 'Hello World!'
+        // });
+        //marker.setMap(this.map);
         this.map.panTo(latLng); //Make map global
     }
 
@@ -198,7 +224,7 @@ export class MapComponent {
                 drawingControl: true,
                 drawingControlOptions: {
                     position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+                    drawingModes: ['polygon']
                 },
                 markerOptions: { icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png' },
                 circleOptions: {
