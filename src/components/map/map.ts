@@ -62,8 +62,6 @@ export class MapComponent {
 
             all.goTo(lat, lng);
 
-            
-
             //let mark = new google.maps.Marker({ position: { lat: lat, lng: lng }, map: this.map });
             //mark.setMap(all.map);
 
