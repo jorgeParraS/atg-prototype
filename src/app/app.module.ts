@@ -11,6 +11,8 @@ import { MapComponent } from '../components/map/map';
 import { TabsComponent } from '../components/tabs/tabs';
 import { HomeComponent } from '../components/home/home';
 import { BasemapComponent } from '../components/basemap/basemap';
+import { MapboxmapComponent } from '../components/mapboxmap/mapboxmap';
+import { inside } from 'point-in-polygon';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,8 @@ import { BasemapComponent } from '../components/basemap/basemap';
         MapComponent,
         TabsComponent,
         HomeComponent,
-        BasemapComponent
+        BasemapComponent,
+        MapboxmapComponent
     ],
     imports: [
         BrowserModule,
@@ -31,7 +34,8 @@ import { BasemapComponent } from '../components/basemap/basemap';
         MapComponent,
         TabsComponent,
         HomeComponent,
-        BasemapComponent
+        BasemapComponent,
+        MapboxmapComponent
     ],
     providers: [
         StatusBar,

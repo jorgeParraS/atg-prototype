@@ -1,0 +1,30 @@
+<!-- Generated template for the MapboxmapComponent component -->
+<ion-header>
+    <ion-navbar>
+        <ion-title>Mapa</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+	<div #map id='map' style="height:100%;"></div>
+	<div class="bottom request-controls">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<button ion-button color="light" (click)="geLocation()">
+						My Position
+					</button>
+				</ion-col> 
+				<ion-col>
+					<button ion-button color="light" (click)="getDraw()">
+						My Draw
+					</button>
+				</ion-col>   
+				<ion-col>
+					<button ion-button color="light" (click)="inPosition()">
+						inPosition
+					</button>
+				</ion-col>          
+			</ion-row>
+		</ion-grid>
+	</div>
+</ion-content>
